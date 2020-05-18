@@ -3,7 +3,7 @@
 		"browser": true,
 		"es6": true
 	},
-	"extends": ["plugin:react/recommended", "airbnb"],
+	"extends": ["plugin:react/recommended", "airbnb", "plugin:prettier/recommended"],
 	"globals": {
 		"Atomics": "readonly",
 		"SharedArrayBuffer": "readonly"
@@ -16,7 +16,7 @@
 		"ecmaVersion": 2018,
 		"sourceType": "module"
 	},
-	"plugins": ["react", "@typescript-eslint", "eslint-plugin-import-helpers"],
+	"plugins": ["react", "@typescript-eslint", "eslint-plugin-import-helpers", "prettier"],
 	"settings": {
 		"import/resolver": {
 			"node": {
@@ -25,7 +25,7 @@
 		}
 	},
 	"rules": {
-		"no-tabs": "off",
+		"camelcase": "off",
 		"import/extensions": ["warn", { ".ts": "never", ".tsx": "never" }],
 		"import/prefer-default-export": "off",
 		"import-helpers/order-imports": [
@@ -37,6 +37,7 @@
 			}
 		],
 		"react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
+		"react/prop-types": "off",
 		"react/jsx-indent": [
 			"warn",
 			"tab",
