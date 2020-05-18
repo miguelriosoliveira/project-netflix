@@ -6,7 +6,7 @@ import { HeaderStyle } from './styles';
 const Header: React.FC = () => (
 	<HeaderStyle>
 		<Link to="/" className="netflix-logo">
-			Netflix
+			Netflyts
 		</Link>
 
 		<Link to="/">Home</Link>
