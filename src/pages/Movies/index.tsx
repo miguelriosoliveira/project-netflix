@@ -10,6 +10,8 @@ interface Movie {
 	year: number;
 	release_date: string;
 	poster_path: string;
+
+	genres: { id: number; name: string }[];
 }
 
 interface MovieRequest {
@@ -23,11 +25,21 @@ const Movies: React.FC = () => {
 		api
 			.get<MovieRequest>('movie/popular')
 			.then(response => {
-				const formattedMovies = response.data.results.map(movie => ({
-					...movie,
-					year: Number(movie.release_date.split('-')[0]),
-				}));
-				setMovies(formattedMovies);
+				const formattedMovies: Movie[] = [];
+				Promise.all(
+					response.data.results.map(async movie => {
+						try {
+							const movieResponse = await api.get(`movie/${movie.id}`);
+							return formattedMovies.push({
+								...movie,
+								year: Number(movie.release_date.split('-')[0]),
+								genres: movieResponse.data.genres,
+							});
+						} catch (err) {
+							return console.log('deu ruim', err);
+						}
+					}),
+				).then(() => setMovies(formattedMovies));
 			})
 			.catch(err => console.log('deu ruim', err));
 	}, []);

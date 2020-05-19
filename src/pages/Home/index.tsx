@@ -11,6 +11,7 @@ interface TvShow {
 	name: string;
 	first_air_date: string;
 	poster_path: string;
+	genres: { id: number; name: string }[];
 
 	title: string;
 	year: number;
@@ -21,6 +22,7 @@ interface Movie {
 	title: string;
 	release_date: string;
 	poster_path: string;
+	genres: { id: number; name: string }[];
 
 	year: number;
 }
@@ -42,12 +44,22 @@ const Home: React.FC = () => {
 		api
 			.get<TvShowRequest>('tv/popular')
 			.then(response => {
-				const formattedTvShows = response.data.results.map(tvShow => ({
-					...tvShow,
-					title: tvShow.name,
-					year: Number(tvShow.first_air_date.split('-')[0]),
-				}));
-				setTvShows(formattedTvShows);
+				const formattedTvShows: TvShow[] = [];
+				Promise.all(
+					response.data.results.map(async tvShow => {
+						try {
+							const tvShowResponse = await api.get(`tv/${tvShow.id}`);
+							return formattedTvShows.push({
+								...tvShow,
+								title: tvShow.name,
+								year: Number(tvShow.first_air_date.split('-')[0]),
+								genres: tvShowResponse.data.genres,
+							});
+						} catch (err) {
+							return console.log('deu ruim', err);
+						}
+					}),
+				).then(() => setTvShows(formattedTvShows));
 			})
 			.catch(err => console.log('deu ruim', err));
 
@@ -55,11 +67,21 @@ const Home: React.FC = () => {
 		api
 			.get<MovieRequest>('movie/popular')
 			.then(response => {
-				const formattedMovies = response.data.results.map(movie => ({
-					...movie,
-					year: Number(movie.release_date.split('-')[0]),
-				}));
-				setMovies(formattedMovies);
+				const formattedMovies: Movie[] = [];
+				Promise.all(
+					response.data.results.map(async movie => {
+						try {
+							const movieResponse = await api.get(`movie/${movie.id}`);
+							return formattedMovies.push({
+								...movie,
+								year: Number(movie.release_date.split('-')[0]),
+								genres: movieResponse.data.genres,
+							});
+						} catch (err) {
+							return console.log('deu ruim', err);
+						}
+					}),
+				).then(() => setMovies(formattedMovies));
 			})
 			.catch(err => console.log('deu ruim', err));
 	}, []);

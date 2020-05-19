@@ -11,10 +11,17 @@ export const MediaListStyle = styled.section`
 
 		img {
 			width: 100%;
+			cursor: pointer;
 			border-radius: 10px;
+			transition: transform 0.2s, border 0.2s;
+			&:hover {
+				transform: scale(1.1);
+				border: 2px solid #fff;
+			}
 		}
 
 		p {
+			cursor: pointer;
 			font-weight: bold;
 			white-space: nowrap;
 			text-overflow: ellipsis;
@@ -28,6 +35,10 @@ export const MediaListStyle = styled.section`
 		span {
 			color: #919191;
 			font-size: 13px;
+			display: block;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
 		}
 	}
 `;

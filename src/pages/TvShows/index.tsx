@@ -12,6 +12,7 @@ interface TvShow {
 
 	title: string;
 	year: number;
+	genres: { id: number; name: string }[];
 }
 
 interface TvShowRequest {
@@ -25,12 +26,22 @@ const TvShows: React.FC = () => {
 		api
 			.get<TvShowRequest>('tv/popular')
 			.then(response => {
-				const formattedTvShows = response.data.results.map(tvShow => ({
-					...tvShow,
-					title: tvShow.name,
-					year: Number(tvShow.first_air_date.split('-')[0]),
-				}));
-				setTvShows(formattedTvShows);
+				const formattedTvShows: TvShow[] = [];
+				Promise.all(
+					response.data.results.map(async tvShow => {
+						try {
+							const tvShowResponse = await api.get(`tv/${tvShow.id}`);
+							return formattedTvShows.push({
+								...tvShow,
+								title: tvShow.name,
+								year: Number(tvShow.first_air_date.split('-')[0]),
+								genres: tvShowResponse.data.genres,
+							});
+						} catch (err) {
+							return console.log('deu ruim', err);
+						}
+					}),
+				).then(() => setTvShows(formattedTvShows));
 			})
 			.catch(err => console.log('deu ruim', err));
 	}, []);
