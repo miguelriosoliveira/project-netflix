@@ -23,5 +23,6 @@ export default createGlobalStyle`
 		display: flex;
 		flex-direction: column;
 		margin: 0 auto 20px;
+		padding: 0 10px;
 	}
 `;

@@ -5,9 +5,8 @@ import { HeaderStyle } from './styles';
 
 const Header: React.FC = () => (
 	<HeaderStyle>
-		<Link to="/" className="logo-mashup">
-			<span className="netflix">Netfl</span>
-			<span className="yts">Yts</span>
+		<Link to="/" className="netflix-logo">
+			Netflix
 		</Link>
 
 		<nav>

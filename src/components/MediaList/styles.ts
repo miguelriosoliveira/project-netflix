@@ -11,12 +11,7 @@ export const MediaListStyle = styled.section`
 
 		img {
 			width: 100%;
-			border: 5px solid #fff;
-			border-radius: 5px;
-			transition: border-color 0.2s;
-			&:hover {
-				border-color: #6ac045;
-			}
+			border-radius: 10px;
 		}
 
 		p {

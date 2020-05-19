@@ -10,16 +10,11 @@ export const HeaderStyle = styled.header`
 		text-decoration: none;
 	}
 
-	.logo-mashup {
+	.netflix-logo {
 		font-family: 'Bebas Neue', cursive;
 		margin-right: 30px;
 		font-size: 35px;
-		.netflix {
-			color: #e50914;
-		}
-		.yts {
-			color: #6ac045;
-		}
+		color: #e50914;
 	}
 
 	nav {
