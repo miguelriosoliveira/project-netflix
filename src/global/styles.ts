@@ -12,10 +12,16 @@ export default createGlobalStyle`
 		font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 		background: #141414;
 		color: #fff;
-
 	}
 
 	button {
 		cursor: pointer;
+	}
+
+	main {
+		max-width: 1100px;
+		display: flex;
+		flex-direction: column;
+		margin: 0 auto 20px;
 	}
 `;

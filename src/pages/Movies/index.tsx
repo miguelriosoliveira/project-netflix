@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
-import Header from '../../compoents/Header';
+import Header from '../../components/Header';
+import MediaList from '../../components/MediaList';
 import api from '../../services/api';
-
-import { MovieList } from './styles';
 
 interface Movie {
 	id: number;
 	title: string;
 	year: number;
-	medium_cover_image: string;
+	release_date: string;
+	poster_path: string;
 }
 
-interface MovieProps {
-	data: {
-		movies: Movie[];
-	};
+interface MovieRequest {
+	results: Movie[];
 }
 
 const Movies: React.FC = () => {
@@ -23,23 +21,23 @@ const Movies: React.FC = () => {
 
 	useEffect(() => {
 		api
-			.get<MovieProps>('list_movies.json')
-			.then(response => setMovies(response.data.data.movies))
-			.catch(err => console.error('deu ruim', err));
+			.get<MovieRequest>('movie/popular')
+			.then(response => {
+				const formattedMovies = response.data.results.map(movie => ({
+					...movie,
+					year: Number(movie.release_date.split('-')[0]),
+				}));
+				setMovies(formattedMovies);
+			})
+			.catch(err => console.log('deu ruim', err));
 	}, []);
 
 	return (
 		<>
 			<Header />
-			<MovieList>
-				{movies.map(movie => (
-					<div key={movie.id}>
-						<img src={movie.medium_cover_image} alt={movie.title} />
-						<p>{movie.title}</p>
-						<span>{movie.year}</span>
-					</div>
-				))}
-			</MovieList>
+			<main>
+				<MediaList medias={movies} />
+			</main>
 		</>
 	);
 };

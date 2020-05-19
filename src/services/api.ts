@@ -1,5 +1,8 @@
 import axios from 'axios';
 
 export default axios.create({
-	baseURL: 'https://yts.mx/api/v2/',
+	baseURL: 'https://api.themoviedb.org/3',
+	headers: {
+		Authorization: `Bearer ${process.env.REACT_APP_API_TOKEN}`,
+	},
 });

@@ -1,14 +1,16 @@
 import styled from 'styled-components';
 
-export const MovieList = styled.section`
+export const MediaListStyle = styled.section`
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: repeat(4, 1fr);
 	justify-items: center;
 	gap: 15px 0;
 
 	div {
+		width: 170px;
+
 		img {
-			width: 170px;
+			width: 100%;
 			border: 5px solid #fff;
 			border-radius: 5px;
 			transition: border-color 0.2s;
@@ -19,6 +21,9 @@ export const MovieList = styled.section`
 
 		p {
 			font-weight: bold;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
 			transition: color 0.2s;
 			&:hover {
 				color: #919191;

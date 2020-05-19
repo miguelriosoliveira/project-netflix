@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Header from '../../compoents/Header';
+import Header from '../../components/Header';
 
 const MyList: React.FC = () => (
 	<>
