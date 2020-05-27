@@ -3,16 +3,11 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import MediaList from '../../components/MediaList';
 import api from '../../services/api';
+import { Media } from '../../utils/interfaces';
 
-interface TvShow {
-	id: number;
+interface TvShow extends Media {
 	name: string;
 	first_air_date: string;
-	poster_path: string;
-
-	title: string;
-	year: number;
-	genres: { id: number; name: string }[];
 }
 
 interface TvShowRequest {
@@ -34,6 +29,7 @@ const TvShows: React.FC = () => {
 							return formattedTvShows.push({
 								...tvShow,
 								title: tvShow.name,
+								type: 'tv-show',
 								year: Number(tvShow.first_air_date.split('-')[0]),
 								genres: tvShowResponse.data.genres,
 							});

@@ -9,14 +9,44 @@ export const MediaListStyle = styled.section`
 	div {
 		width: 170px;
 
-		img {
-			width: 100%;
-			cursor: pointer;
-			border-radius: 10px;
-			transition: transform 0.2s, border 0.2s;
+		figure {
+			position: relative;
+
+			img {
+				cursor: pointer;
+				width: 100%;
+				border-radius: 10px;
+				transition: transform 0.2s, border 0.2s;
+			}
+
+			button {
+				display: none;
+				height: fit-content;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background: transparent;
+				border: 0;
+				transition: transform 0.2s, background-color 0.2s, border-radius 0.2s;
+				&:hover {
+					transform: translate(-50%, -50%) scale(1.2);
+					background-color: rgb(0, 0, 0, 0.6);
+					border-radius: 50%;
+				}
+				svg {
+					color: #fff;
+				}
+			}
+
 			&:hover {
-				transform: scale(1.1);
-				border: 2px solid #fff;
+				img {
+					transform: scale(1.1);
+					border: 2px solid #fff;
+				}
+				button {
+					display: flex;
+				}
 			}
 		}
 

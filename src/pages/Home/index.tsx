@@ -3,28 +3,17 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import MediaList from '../../components/MediaList';
 import api from '../../services/api';
+import { Media } from '../../utils/interfaces';
 
 import { CategoryTitle } from './styles';
 
-interface TvShow {
-	id: number;
+interface TvShow extends Media {
 	name: string;
 	first_air_date: string;
-	poster_path: string;
-	genres: { id: number; name: string }[];
-
-	title: string;
-	year: number;
 }
 
-interface Movie {
-	id: number;
-	title: string;
+interface Movie extends Media {
 	release_date: string;
-	poster_path: string;
-	genres: { id: number; name: string }[];
-
-	year: number;
 }
 
 interface TvShowRequest {
@@ -52,6 +41,7 @@ const Home: React.FC = () => {
 							return formattedTvShows.push({
 								...tvShow,
 								title: tvShow.name,
+								type: 'tv-show',
 								year: Number(tvShow.first_air_date.split('-')[0]),
 								genres: tvShowResponse.data.genres,
 							});
@@ -74,6 +64,7 @@ const Home: React.FC = () => {
 							const movieResponse = await api.get(`movie/${movie.id}`);
 							return formattedMovies.push({
 								...movie,
+								type: 'movie',
 								year: Number(movie.release_date.split('-')[0]),
 								genres: movieResponse.data.genres,
 							});

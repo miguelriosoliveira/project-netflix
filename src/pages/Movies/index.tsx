@@ -3,15 +3,10 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import MediaList from '../../components/MediaList';
 import api from '../../services/api';
+import { Media } from '../../utils/interfaces';
 
-interface Movie {
-	id: number;
-	title: string;
-	year: number;
+interface Movie extends Media {
 	release_date: string;
-	poster_path: string;
-
-	genres: { id: number; name: string }[];
 }
 
 interface MovieRequest {
@@ -32,6 +27,7 @@ const Movies: React.FC = () => {
 							const movieResponse = await api.get(`movie/${movie.id}`);
 							return formattedMovies.push({
 								...movie,
+								type: 'movie',
 								year: Number(movie.release_date.split('-')[0]),
 								genres: movieResponse.data.genres,
 							});
