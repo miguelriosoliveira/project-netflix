@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import Header from '../../components/Header';
 import MediaList from '../../components/MediaList';
+import { Media } from '../../hooks/favorites';
 import api from '../../services/api';
-import { Media } from '../../utils/interfaces';
 
 interface Movie extends Media {
 	release_date: string;
@@ -28,6 +28,7 @@ const Movies: React.FC = () => {
 							return formattedMovies.push({
 								...movie,
 								type: 'movie',
+								unique_id: `${movie.id}-movie`,
 								year: Number(movie.release_date.split('-')[0]),
 								genres: movieResponse.data.genres,
 							});

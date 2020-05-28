@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import Header from '../../components/Header';
 import MediaList from '../../components/MediaList';
+import { Media } from '../../hooks/favorites';
 import api from '../../services/api';
-import { Media } from '../../utils/interfaces';
 
 import { CategoryTitle } from './styles';
 
@@ -41,7 +41,8 @@ const Home: React.FC = () => {
 							return formattedTvShows.push({
 								...tvShow,
 								title: tvShow.name,
-								type: 'tv-show',
+								type: 'tv',
+								unique_id: `${tvShow.id}-tv`,
 								year: Number(tvShow.first_air_date.split('-')[0]),
 								genres: tvShowResponse.data.genres,
 							});
@@ -65,6 +66,7 @@ const Home: React.FC = () => {
 							return formattedMovies.push({
 								...movie,
 								type: 'movie',
+								unique_id: `${movie.id}-movie`,
 								year: Number(movie.release_date.split('-')[0]),
 								genres: movieResponse.data.genres,
 							});
