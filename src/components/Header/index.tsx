@@ -1,12 +1,17 @@
 import React from 'react';
+import { FiPlus } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+
+import tmdbLogo from '../../assets/tmdb-big.svg';
 
 import { HeaderStyle } from './styles';
 
 const Header: React.FC = () => (
 	<HeaderStyle>
-		<Link to="/" className="netflix-logo">
-			Netflix
+		<Link to="/" className="logos">
+			<span>Netflix</span>
+			<FiPlus size={25} />
+			<img src={tmdbLogo} alt="TMDB Logo" />
 		</Link>
 
 		<nav>
