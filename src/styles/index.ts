@@ -9,7 +9,7 @@ export default createGlobalStyle`
 	}
 
 	body {
-		font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+		font-family: sans-serif;
 		background: #141414;
 		color: #fff;
 	}
