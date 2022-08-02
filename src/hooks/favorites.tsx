@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useCallback, useState } from 'react';
+import React, { createContext, useContext, useCallback, useState, ReactNode, useMemo } from 'react';
 
 interface Genre {
 	id: number;
@@ -23,7 +23,7 @@ interface FavoritesContextData {
 
 const FavoritesContext = createContext<FavoritesContextData>({} as FavoritesContextData);
 
-const FavoritesProvider: React.FC = ({ children }) => {
+const FavoritesProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 	const [favorites, setFavorites] = useState<Media[]>(() => {
 		const favs = localStorage.getItem('@ProjectNetflix:favorites');
 		return favs ? JSON.parse(favs) : [];
@@ -52,11 +52,11 @@ const FavoritesProvider: React.FC = ({ children }) => {
 		[favorites, isFavorite],
 	);
 
-	return (
-		<FavoritesContext.Provider value={{ toggleFavorite, isFavorite, favorites }}>
-			{children}
-		</FavoritesContext.Provider>
+	const providerValues = useMemo(
+		() => ({ toggleFavorite, isFavorite, favorites }),
+		[favorites, isFavorite, toggleFavorite],
 	);
+	return <FavoritesContext.Provider value={providerValues}>{children}</FavoritesContext.Provider>;
 };
 
 function useFavorites(): FavoritesContextData {
