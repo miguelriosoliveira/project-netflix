@@ -1,9 +1,5 @@
-'use client';
-
 import { MediaList } from '@/components';
-import { useFavorites } from '@/hooks';
 
-export default async function Home() {
-	const { favorites } = useFavorites();
-	return <MediaList medias={favorites} />;
+export default async function MyList() {
+	return <MediaList title="My List" medias="favorites" />;
 }

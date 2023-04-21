@@ -15,7 +15,7 @@ function mapTvShow(tvShow: TvShow): TvShow {
 		unique_id: `${tvShow.id}-tv`,
 		year: Number(tvShow.first_air_date.split('-')[0]),
 		poster_path: tvShow.poster_path
-			? `${TMDB_IMAGES_API_URL}/w300/${tvShow.poster_path}`
+			? `${TMDB_IMAGES_API_URL}/w300${tvShow.poster_path}`
 			: '/empty-poster.png',
 	};
 }
@@ -27,7 +27,7 @@ function mapMovie(movie: Movie): Movie {
 		unique_id: `${movie.id}-movie`,
 		year: Number(movie.release_date.split('-')[0]),
 		poster_path: movie.poster_path
-			? `${TMDB_IMAGES_API_URL}/w300/${movie.poster_path}`
+			? `${TMDB_IMAGES_API_URL}/w300${movie.poster_path}`
 			: '/empty-poster.png',
 	};
 }

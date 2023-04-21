@@ -11,7 +11,7 @@ function mapMovie(movie: Movie): Movie {
 		unique_id: `${movie.id}-movie`,
 		year: Number(movie.release_date.split('-')[0]),
 		poster_path: movie.poster_path
-			? `${TMDB_IMAGES_API_URL}/w300/${movie.poster_path}`
+			? `${TMDB_IMAGES_API_URL}/w300${movie.poster_path}`
 			: '/empty-poster.png',
 	};
 }
@@ -32,7 +32,7 @@ async function getMovies(movieMapper: (movie: Movie) => Movie) {
 	return formattedMovies.sort((a, b) => b.popularity - a.popularity);
 }
 
-export default async function Home() {
+export default async function Movies() {
 	const movies = await getMovies(mapMovie);
 
 	return <MediaList medias={movies} />;

@@ -1,24 +1,17 @@
-'use client';
-
-import Image from 'next/image';
 import { Media } from '@/@types';
-import { useFavorites } from '@/hooks';
-import { useCallback } from 'react';
+import Image from 'next/image';
 import { FiCheckCircle, FiPlusCircle } from 'react-icons/fi';
 
 interface Props {
 	media: Media;
+	toggleFavorite: (media: Media) => void;
+	isFavorite: (media: Media) => boolean;
 }
 
-export function MediaItem({ media }: Props) {
-	const { toggleFavorite, isFavorite } = useFavorites();
-
-	const handleToggleFavorite = useCallback(
-		(media: Media) => {
-			toggleFavorite(media);
-		},
-		[toggleFavorite],
-	);
+export function MediaItem({ media, toggleFavorite, isFavorite }: Props) {
+	function handleToggleFavorite(media: Media) {
+		toggleFavorite(media);
+	}
 
 	const hoverTitle =
 		media.title === media.original_title

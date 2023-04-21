@@ -13,7 +13,7 @@ function mapTvShow(tvShow: TvShow): TvShow {
 		unique_id: `${tvShow.id}-tv`,
 		year: Number(tvShow.first_air_date.split('-')[0]),
 		poster_path: tvShow.poster_path
-			? `${TMDB_IMAGES_API_URL}/w300/${tvShow.poster_path}`
+			? `${TMDB_IMAGES_API_URL}/w300${tvShow.poster_path}`
 			: '/empty-poster.png',
 	};
 }
@@ -34,7 +34,7 @@ async function getShows(tvShowMapper: (tvShow: TvShow) => TvShow) {
 	return formattedTvShows.sort((a, b) => b.popularity - a.popularity);
 }
 
-export default async function Home() {
+export default async function TvShows() {
 	const tvShows = await getShows(mapTvShow);
 
 	return <MediaList medias={tvShows} />;

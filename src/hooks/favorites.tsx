@@ -12,9 +12,10 @@ import {
 } from 'react';
 
 interface FavoritesContextData {
-	toggleFavorite(media: Media): void;
-	isFavorite(media: Media): boolean;
 	favorites: Media[];
+	isFavorite(media: Media): boolean;
+	toggleFavorite(media: Media): void;
+	clearFavorites(): void;
 }
 
 const LOCAL_STORAGE_KEY = '@ProjectNetflix:favorites';
@@ -42,7 +43,7 @@ function FavoritesProvider({ children }: { children: ReactNode }) {
 			let updatedFavorites: Media[] = [...favorites];
 
 			if (isFavorite(media)) {
-				updatedFavorites = favorites.filter(fav => fav.unique_id !== media.unique_id);
+				updatedFavorites = updatedFavorites.filter(fav => fav.unique_id !== media.unique_id);
 			} else {
 				updatedFavorites.push(media);
 			}
@@ -53,10 +54,16 @@ function FavoritesProvider({ children }: { children: ReactNode }) {
 		[favorites, isFavorite],
 	);
 
+	const clearFavorites = useCallback(() => {
+		setFavorites([]);
+		localStorage.removeItem(LOCAL_STORAGE_KEY);
+	}, []);
+
 	const providerValues = useMemo(
-		() => ({ toggleFavorite, isFavorite, favorites }),
-		[favorites, isFavorite, toggleFavorite],
+		() => ({ favorites, isFavorite, toggleFavorite, clearFavorites }),
+		[favorites, isFavorite, toggleFavorite, clearFavorites],
 	);
+
 	return <FavoritesContext.Provider value={providerValues}>{children}</FavoritesContext.Provider>;
 }
 
