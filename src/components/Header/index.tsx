@@ -1,27 +1,31 @@
-import React from 'react';
+import { Bebas_Neue } from 'next/font/google';
+import Image from 'next/image';
+import Link from 'next/link';
 import { FiPlus } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import TmdbLogo from '../../../public/tmdb-big.svg';
+import { NavLink } from './NavLink';
 
-import tmdbLogo from '../../assets/tmdb-big.svg';
+const bebasNeue = Bebas_Neue({
+	weight: '400',
+	display: 'swap',
+	subsets: ['latin'],
+});
 
-import { HeaderStyle } from './styles';
+export function Header() {
+	return (
+		<header className="flex items-center">
+			<Link href="/" className="flex items-baseline mr-8">
+				<span className={`${bebasNeue.className} text-red-600 text-4xl`}>Netflix</span>
+				<FiPlus size={25} />
+				<Image src={TmdbLogo} width={190} alt="TMDB Logo" />
+			</Link>
 
-const Header: React.FC = () => (
-	<HeaderStyle>
-		<Link to="/" className="logos">
-			<span>Netflix</span>
-			<FiPlus size={25} />
-			<img src={tmdbLogo} alt="TMDB Logo" />
-		</Link>
-
-		<nav>
-			<Link to="/">Home</Link>
-			<Link to="/tv-shows">TV Shows</Link>
-			<Link to="/movies">Movies</Link>
-			{/* <Link to="/recently-added">Recently Added</Link> */}
-			<Link to="/my-list">My List</Link>
-		</nav>
-	</HeaderStyle>
-);
-
-export default Header;
+			<nav className="flex gap-5 font-medium">
+				<NavLink href="/">Home</NavLink>
+				<NavLink href="/tv-shows">TV Shows</NavLink>
+				<NavLink href="/movies">Movies</NavLink>
+				<NavLink href="/my-list">My List</NavLink>
+			</nav>
+		</header>
+	);
+}

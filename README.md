@@ -1,5 +1,5 @@
 # project-netflix
 
-Netflix clone made with ReactJS + TypeScript and the TMDB API
+Netflix-inspired app made with Next.js + TypeScript and the TMDB API.
 
 https://project-netflix.vercel.app

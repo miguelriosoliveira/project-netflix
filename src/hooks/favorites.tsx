@@ -1,19 +1,15 @@
-import React, { createContext, useContext, useCallback, useState, ReactNode, useMemo } from 'react';
+'use client';
 
-interface Genre {
-	id: number;
-	name: string;
-}
-
-export interface Media {
-	id: number;
-	unique_id: string;
-	type: 'movie' | 'tv';
-	title: string;
-	year: number;
-	poster_path: string;
-	genres: Genre[];
-}
+import { Media } from '@/@types';
+import {
+	ReactNode,
+	createContext,
+	useCallback,
+	useContext,
+	useEffect,
+	useMemo,
+	useState,
+} from 'react';
 
 interface FavoritesContextData {
 	toggleFavorite(media: Media): void;
@@ -21,13 +17,18 @@ interface FavoritesContextData {
 	favorites: Media[];
 }
 
+const LOCAL_STORAGE_KEY = '@ProjectNetflix:favorites';
 const FavoritesContext = createContext<FavoritesContextData>({} as FavoritesContextData);
 
-const FavoritesProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-	const [favorites, setFavorites] = useState<Media[]>(() => {
-		const favs = localStorage.getItem('@ProjectNetflix:favorites');
-		return favs ? JSON.parse(favs) : [];
-	});
+function FavoritesProvider({ children }: { children: ReactNode }) {
+	const [favorites, setFavorites] = useState<Media[]>([]);
+
+	useEffect(() => {
+		const favoritesString = localStorage.getItem(LOCAL_STORAGE_KEY);
+		if (favoritesString) {
+			setFavorites(JSON.parse(favoritesString));
+		}
+	}, []);
 
 	const isFavorite = useCallback(
 		(media: Media) => {
@@ -47,7 +48,7 @@ const FavoritesProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 			}
 
 			setFavorites(updatedFavorites);
-			localStorage.setItem('@ProjectNetflix:favorites', JSON.stringify(updatedFavorites));
+			localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedFavorites));
 		},
 		[favorites, isFavorite],
 	);
@@ -57,7 +58,7 @@ const FavoritesProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 		[favorites, isFavorite, toggleFavorite],
 	);
 	return <FavoritesContext.Provider value={providerValues}>{children}</FavoritesContext.Provider>;
-};
+}
 
 function useFavorites(): FavoritesContextData {
 	const context = useContext(FavoritesContext);
