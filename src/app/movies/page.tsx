@@ -34,6 +34,5 @@ async function getMovies(movieMapper: (movie: Movie) => Movie) {
 
 export default async function Movies() {
 	const movies = await getMovies(mapMovie);
-
 	return <MediaList medias={movies} />;
 }

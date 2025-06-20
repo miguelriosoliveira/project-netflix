@@ -36,6 +36,5 @@ async function getShows(tvShowMapper: (tvShow: TvShow) => TvShow) {
 
 export default async function TvShows() {
 	const tvShows = await getShows(mapTvShow);
-
 	return <MediaList medias={tvShows} />;
 }
