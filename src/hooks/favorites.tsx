@@ -1,15 +1,7 @@
 'use client';
 
 import { Media } from '@/@types';
-import {
-	ReactNode,
-	createContext,
-	useCallback,
-	useContext,
-	useEffect,
-	useMemo,
-	useState,
-} from 'react';
+import { ReactNode, createContext, useCallback, useContext, useMemo, useState } from 'react';
 
 interface FavoritesContextData {
 	favorites: Media[];
@@ -22,14 +14,10 @@ const LOCAL_STORAGE_KEY = '@ProjectNetflix:favorites';
 const FavoritesContext = createContext<FavoritesContextData>({} as FavoritesContextData);
 
 function FavoritesProvider({ children }: { children: ReactNode }) {
-	const [favorites, setFavorites] = useState<Media[]>([]);
-
-	useEffect(() => {
+	const [favorites, setFavorites] = useState<Media[]>(() => {
 		const favoritesString = localStorage.getItem(LOCAL_STORAGE_KEY);
-		if (favoritesString) {
-			setFavorites(JSON.parse(favoritesString));
-		}
-	}, []);
+		return favoritesString ? JSON.parse(favoritesString) : [];
+	});
 
 	const isFavorite = useCallback(
 		(media: Media) => {
