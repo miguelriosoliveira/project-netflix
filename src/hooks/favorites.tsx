@@ -15,6 +15,9 @@ const FavoritesContext = createContext<FavoritesContextData>({} as FavoritesCont
 
 function FavoritesProvider({ children }: { children: ReactNode }) {
 	const [favorites, setFavorites] = useState<Media[]>(() => {
+		if (typeof window === 'undefined') {
+			return [];
+		}
 		const favoritesString = localStorage.getItem(LOCAL_STORAGE_KEY);
 		return favoritesString ? JSON.parse(favoritesString) : [];
 	});

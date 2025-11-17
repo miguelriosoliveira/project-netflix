@@ -1,12 +1,15 @@
 import { Header } from '@/components';
 import { FavoritesProvider } from '@/hooks';
-import { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
 import { Roboto } from 'next/font/google';
 import './globals.css';
 
 export const metadata: Metadata = {
 	title: 'Project Netflix',
 	description: 'Netflix-inspired media app',
+};
+
+export const viewport: Viewport = {
 	themeColor: '#E50914',
 };
 
