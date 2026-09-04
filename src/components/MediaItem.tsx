@@ -1,6 +1,6 @@
-import { Media } from '@/@types';
 import Image from 'next/image';
 import { FiCheckCircle, FiPlusCircle } from 'react-icons/fi';
+import type { Media } from '@/@types';
 
 interface Props {
 	media: Media;

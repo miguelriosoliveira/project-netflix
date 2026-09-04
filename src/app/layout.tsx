@@ -1,7 +1,7 @@
+import type { Metadata, Viewport } from 'next';
+import { Roboto } from 'next/font/google';
 import { Header } from '@/components';
 import { FavoritesProvider } from '@/hooks';
-import { Metadata, Viewport } from 'next';
-import { Roboto } from 'next/font/google';
 import './globals.css';
 
 export const metadata: Metadata = {

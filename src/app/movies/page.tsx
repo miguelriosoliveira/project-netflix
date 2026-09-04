@@ -1,4 +1,4 @@
-import { Movie, MediaRequest } from '@/@types';
+import type { MediaRequest, Movie } from '@/@types';
 import { MediaList } from '@/components';
 import { tmdbApi } from '@/services';
 

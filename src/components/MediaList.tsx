@@ -1,9 +1,9 @@
 'use client';
 
-import { Media } from '@/@types';
-import { MediaItem } from './MediaItem';
-import { useFavorites } from '@/hooks';
 import { FiTrash } from 'react-icons/fi';
+import type { Media } from '@/@types';
+import { useFavorites } from '@/hooks';
+import { MediaItem } from './MediaItem';
 
 interface Props {
 	title?: string;
